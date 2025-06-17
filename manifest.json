@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Alerta Nível Taquari - Lajeado",
+  "version": "1.0",
+  "description": "Notifica quando o nível do rio Taquari em Lajeado atingir a cota de alerta.",
+  "permissions": [
+    "alarms",
+    "scripting",
+    "tabs",
+    "notifications",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://nivelguaiba.com.br/lajeado"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "128": "icon.png"
+  },
+  "action": {
+    "default_title": "Monitorando o nível do Taquari",
+    "default_popup": "popup.html",
+    "default_icon": {
+        "128": "icon.png"
+    }
+  }
+}

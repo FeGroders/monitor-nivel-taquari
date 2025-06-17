@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nível do Taquari - Lajeado</title>
+  <link rel="stylesheet" href="popup.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>🌊 Nível Taquari</h1>
+    <div class="nivel-destaque" id="nivel">--</div>
+    <div class="legenda">
+        <div class="item-legenda">
+            <span class="caixa verde"></span> Seguro (≥ 2m)
+        </div>
+        <div class="item-legenda">
+            <span class="caixa amarelo"></span> Atenção (0,3 a 1m)
+        </div>
+        <div class="item-legenda">
+            <span class="caixa vermelho"></span> Alerta (< 0,3m)
+        </div>
+    </div>
+    <p><strong>Data/Hora:</strong> <span id="label">Carregando...</span></p>
+    <p><strong>Tendência:</strong> <span id="tendencia">Carregando...</span></p>
+  </div>  
+  <script src="popup.js"></script>
+</body>
+</html>

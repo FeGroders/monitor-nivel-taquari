@@ -1,0 +1,40 @@
+# Sistema
+.DS_Store
+Thumbs.db
+
+# IDEs e editores
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependências (caso use tools modernas)
+node_modules/
+dist/
+build/
+
+# Arquivos temporários
+*.swp
+*.tmp
+
+# Cache
+.cache/
+*.bak
+
+# Extensão Chrome empacotada
+*.crx
+*.pem
+
+# Arquivo ZIP gerado para publicação
+*.zip
+
+# Ambiente de desenvolvimento pessoal
+.env
+.env.local
+.env.*
