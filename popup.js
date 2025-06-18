@@ -5,9 +5,20 @@ async function fetchDados() {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
 
-    const nivelText = doc.querySelector(".medicao-principal__nivel--normal")?.textContent.trim();
-    const labelText = doc.querySelector(".medicao-principal__label")?.textContent.trim();
-    const tendenciaText = doc.querySelector(".medicao-principal__tendencia")?.textContent.trim();
+    const nomeRio =
+      doc.querySelector(".cabecalho-pagina h1")?.textContent.trim() ||
+      "Rio desconhecido";
+    const nivelText = doc
+      .querySelector(
+        ".medicao-principal__nivel--normal, .medicao-principal__nivel--alerta, .medicao-principal__nivel--acima-cota"
+      )
+      ?.textContent.trim();
+    const labelText = doc
+      .querySelector(".medicao-principal__label")
+      ?.textContent.trim();
+    const tendenciaText = doc
+      .querySelector(".medicao-principal__tendencia")
+      ?.textContent.trim();
 
     const nivel = parseFloat(nivelText.replace(",", "."));
 
@@ -27,11 +38,12 @@ async function fetchDados() {
         nivelDiv.classList.add("nivel-verde");
       } else if (diferenca >= 0.5) {
         nivelDiv.classList.add("nivel-amarelo");
-      } else  {
+      } else {
         nivelDiv.classList.add("nivel-vermelho");
       }
     }
 
+    document.getElementById("nomeRio").textContent = "🌊 " + nomeRio;
     document.getElementById("label").textContent = labelText;
     document.getElementById("tendencia").textContent = tendenciaText;
 
@@ -39,7 +51,6 @@ async function fetchDados() {
     localStorage.setItem("nivel", nivelText);
     localStorage.setItem("label", labelText);
     localStorage.setItem("tendencia", tendenciaText);
-
   } catch (error) {
     document.getElementById("nivel").textContent = "Erro";
     document.getElementById("label").textContent = "";
@@ -47,5 +58,63 @@ async function fetchDados() {
     console.error("Erro ao buscar dados:", error);
   }
 }
+
+function renderReferencias() {
+  const lista = document.getElementById("referencias-list");
+  const referencias = JSON.parse(localStorage.getItem("referencias") || "[]");
+
+  lista.innerHTML = "";
+
+  referencias.forEach((ref, index) => {
+    const item = document.createElement("div");
+    item.className = "referencia-item";
+
+    const nomeInput = document.createElement("input");
+    nomeInput.type = "text";
+    nomeInput.className = "input-nome";
+    nomeInput.value = ref.nome;
+    nomeInput.addEventListener("input", () => {
+      referencias[index].nome = nomeInput.value;
+      salvarReferencias(referencias);
+    });
+
+    const cotaInput = document.createElement("input");
+    cotaInput.type = "number";
+    cotaInput.className = "input-cota";
+    cotaInput.step = "0.01";
+    cotaInput.value = ref.cota;
+    cotaInput.addEventListener("input", () => {
+      referencias[index].cota = parseFloat(cotaInput.value);
+      salvarReferencias(referencias);
+    });
+
+    const excluirBtn = document.createElement("button");
+    excluirBtn.textContent = "🗑️";
+    excluirBtn.addEventListener("click", () => {
+      referencias.splice(index, 1);
+      salvarReferencias(referencias);
+      renderReferencias();
+    });
+
+    item.appendChild(nomeInput);
+    item.appendChild(cotaInput);
+    item.appendChild(excluirBtn);
+
+    lista.appendChild(item);
+  });
+}
+
+function salvarReferencias(referencias) {
+  localStorage.setItem("referencias", JSON.stringify(referencias));
+}
+
+document.getElementById("btnAdicionar").addEventListener("click", () => {
+  const referencias = JSON.parse(localStorage.getItem("referencias") || "[]");
+  referencias.push({ nome: "", cota: 0 });
+  salvarReferencias(referencias);
+  renderReferencias();
+});
+
+document.addEventListener("DOMContentLoaded", renderReferencias);
 
 document.addEventListener("DOMContentLoaded", fetchDados);

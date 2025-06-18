@@ -1,5 +1,7 @@
 setTimeout(() => {
-  const nivelElement = document.querySelector(".medicao-principal__nivel--normal");
+  const nivelElement = document.querySelector(
+    ".medicao-principal__nivel--normal"
+  );
   const cotaElement = document.querySelector(".medicao-principal__cota-alerta");
   const label = document.querySelector(".medicao-principal__label");
   const tendencia = document.querySelector(".medicao-principal__tendencia");
@@ -11,7 +13,7 @@ setTimeout(() => {
     console.error("Cota de alerta atingida ou ultrapassada!");
     chrome.runtime.sendMessage({
       action: "alertaCota",
-      nivel: nivelElement.textContent.trim()
+      nivel: nivelElement.textContent.trim(),
     });
   }
 

@@ -80,3 +80,41 @@ p {
 .vermelho {
   background-color: #e74c3c;
 }
+
+.referencia-section {
+  padding: 10px 12px;
+  font-size: 13px;
+}
+
+#referencias-list {
+  margin-top: 8px;
+}
+
+.referencia-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.referencia-item input {
+  font-size: 12px;
+  padding: 4px;
+  width: 100px;
+}
+
+.input-nome {
+  flex: 2;
+  min-width: 140px;
+}
+
+.input-cota {
+  flex: 1;
+  max-width: 40px;
+  text-align: right;
+}
+
+.referencia-item button {
+  font-size: 12px;
+  padding: 4px 6px;
+}
